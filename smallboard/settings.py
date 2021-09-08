@@ -38,8 +38,7 @@ DEBUG = bool(strtobool(os.environ.get("DEBUG", "True")))
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    "smallboard.herokuapp.com",
-    ".smallboard.app",
+    "intermittent-puzzboard.herokuapp.com",
 ]
 
 # This should be turned on in production to redirect HTTP to HTTPS
