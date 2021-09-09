@@ -188,11 +188,6 @@ DISCORD_PUZZLE_ANNOUNCEMENTS_CHANNEL = os.environ.get(
 )
 DISCORD_DEVS_ROLE = os.environ.get("DISCORD_DEVS_ROLE", "dev")
 
-# Discord Bot settings
-
-# TODO(akirabaruah): This is a hack. Find a better way to set the bot's hunt.
-BOT_ACTIVE_HUNT = os.environ.get("BOT_ACTIVE_HUNT", None)
-
 # Google Drive API
 try:
     GOOGLE_API_AUTHN_INFO = {
@@ -219,7 +214,7 @@ except KeyError as e:
 
 AUTHENTICATION_BACKENDS = [
     "social_core.backends.google.GoogleOAuth2",
-    "django.contrib.auth.backends.ModelBackend",
+#    "django.contrib.auth.backends.ModelBackend",
 ]
 
 SOCIAL_AUTH_URL_NAMESPACE = "social"
@@ -258,19 +253,8 @@ TAGGIT_TAGS_FROM_STRING = "puzzles.tag_utils.to_tag"
 
 # Chat app settings.
 
-import discord_lib
-
-if not "DISCORD_API_TOKEN" in os.environ:
-    logger.warn(
-        "No Discord API token found in environment. Automatic Discord channel creation disabled."
-    )
-    CHAT_DEFAULT_SERVICE = None
-    CHAT_SERVICES = {}
-else:
-    CHAT_DEFAULT_SERVICE = "DISCORD"
-    CHAT_SERVICES = {
-        "DISCORD": discord_lib.DiscordChatService,
-    }
+CHAT_DEFAULT_SERVICE = None
+CHAT_SERVICES = {}
 
 
 # Celery settings
