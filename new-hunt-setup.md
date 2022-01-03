@@ -11,7 +11,7 @@ To create service accounts and obtain these secrets, visit [https://console.deve
 
 ### New hunt setup
 
-Small Board expects a hunt Google Drive folder to already be set up with a template spreadsheet in it (from which puzzle spreadsheets will be cloned). Small Board uses the list of users who have access to the Google Drive folder as the whitelist for authorizing users on login. Once you've created a hunt Google Drive folder and placed a template spreadsheet in it, you should set the following environment variables:
+Small Board expects a hunt Google Drive folder to already be set up with a template spreadsheet in it (from which puzzle spreadsheets will be cloned). Small Board uses the list of users who have access to the Google Drive folder as the allowlist for authorizing users on login. Once you've created a hunt Google Drive folder and placed a template spreadsheet in it, you should set the following environment variables:
 
 - `GOOGLE_DRIVE_HUNT_FOLDER_ID`
 - `GOOGLE_SHEETS_TEMPLATE_FILE_ID`
