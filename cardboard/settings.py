@@ -219,7 +219,8 @@ else:
 
 AUTHENTICATION_BACKENDS = [
     "social_core.backends.google.GoogleOAuth2",
-    "django.contrib.auth.backends.ModelBackend",
+    # Disabled to disallow local logins.
+    # "django.contrib.auth.backends.ModelBackend",
 ]
 
 SOCIAL_AUTH_URL_NAMESPACE = "social"
