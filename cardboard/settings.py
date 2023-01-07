@@ -38,9 +38,7 @@ DEBUG = bool(strtobool(os.environ.get("DEBUG", "True")))
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    "smallboard.herokuapp.com",
-    ".smallboard.app",
-    "cardinality-cardboard.herokuapp.com",
+    "intermittent-puzzboard.herokuapp.com",
 ]
 
 # This should be turned on in production to redirect HTTP to HTTPS
@@ -226,7 +224,8 @@ except KeyError as e:
 
 AUTHENTICATION_BACKENDS = [
     "social_core.backends.google.GoogleOAuth2",
-    "django.contrib.auth.backends.ModelBackend",
+    # Disabled to disallow local logins.
+    #"django.contrib.auth.backends.ModelBackend",
 ]
 
 SOCIAL_AUTH_URL_NAMESPACE = "social"
