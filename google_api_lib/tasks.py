@@ -136,8 +136,8 @@ def create_google_sheets(self, puzzle_id) -> None:
             if existing_file:
                 # We copied over an existing file, but we haven't renamed it yet
                 rename_sheet.delay(sheet_url, puzzle.name)
-
-            transfer_ownership.delay(new_file, template_file_id)
+            else:
+                transfer_ownership.delay(new_file, template_file_id)
             add_puzzle_link_to_sheet.delay(puzzle.url, sheet_url)
 
             if destination_folder_id:
