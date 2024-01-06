@@ -1,0 +1,33 @@
+FROM python:3.11.6-alpine
+
+WORKDIR /usr/src/cardboard
+
+RUN set -xe;
+
+RUN apk update && apk add --no-cache tini nodejs yarn
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir poetry==1.8.5
+
+COPY ./pyproject.toml ./poetry.lock .
+RUN poetry config virtualenvs.create false
+RUN poetry install --no-cache
+
+COPY ./package.json ./yarn.lock ./
+RUN yarn install && yarn cache clean
+# Install patches
+COPY ./patches ./patches
+RUN yarn install && yarn cache clean
+
+COPY . .
+RUN yarn run build
+RUN python manage.py collectstatic --noinput
+
+RUN addgroup -g 1000 cardboard;
+RUN adduser -u 1000 -G cardboard -D -h /usr/src/cardboard cardboard;
+RUN chown -R cardboard:cardboard /usr/src/cardboard
+
+
+USER cardboard
+EXPOSE 8000/tcp
+ENTRYPOINT [ "tini", "--" ]
+CMD [ "./start-server.sh" ]
