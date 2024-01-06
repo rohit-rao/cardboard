@@ -38,15 +38,13 @@ DEBUG = bool(strtobool(os.environ.get("DEBUG", "false")))
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    "smallboard.herokuapp.com",
-    ".smallboard.app",
-    "cardinality-cardboard.herokuapp.com",
+    "puzzboard.onrender.com",
 ]
 
 # The first is the published Cardboard Chrome Extension.
 # The second is a local version being used for development.
 CSRF_TRUSTED_ORIGINS = [
-    "chrome-extension://fhldkjfidcbfienegpehemncionolmfa",
+    #"chrome-extension://fhldkjfidcbfienegpehemncionolmfa",
 ]
 
 # This should be turned on in production to redirect HTTP to HTTPS
@@ -161,7 +159,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "cardboard/static"),
     os.path.join(BASE_DIR, "hunts/static"),
 ]
-STATICFILES_STORAGE = "whitenoise.django.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # User login
 AUTH_USER_MODEL = "accounts.Puzzler"
@@ -178,9 +177,9 @@ REST_FRAMEWORK = {
 }
 
 # Configure Django App for Heroku.
-import django_heroku
+#import django_heroku
 
-django_heroku.settings(locals(), test_runner=False)
+#django_heroku.settings(locals(), test_runner=False)
 
 import dj_database_url
 

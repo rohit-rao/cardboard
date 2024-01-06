@@ -1,0 +1,13 @@
+.ash_history
+.codecov.yml
+.env
+.env.test
+.git
+.git*
+Dockerfile*
+LICENSE.txt
+*.md
+Procfile
+chrome_extension
+staticfiles
+*__pycache__*

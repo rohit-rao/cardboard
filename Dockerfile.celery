@@ -1,0 +1,24 @@
+FROM python:3.11.6-alpine
+
+WORKDIR /usr/src/cardboard
+
+RUN set -xe;
+
+RUN addgroup -g 1000 cardboard;
+RUN adduser -u 1000 -G cardboard -D -h /usr/src/cardboard cardboard;
+
+RUN apk update && apk add --no-cache tini nodejs yarn
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir poetry==1.8.5 dj-database-url whitenoise==6.3.0
+
+COPY ./pyproject.toml ./poetry.lock .
+RUN poetry config virtualenvs.create false
+RUN poetry install --no-cache
+
+RUN chown -R cardboard:cardboard /usr/src/cardboard
+USER cardboard
+COPY . .
+
+
+ENTRYPOINT [ "tini", "--" ]
+CMD [ "celery", "-A", "cardboard", "worker", "-l", "INFO", "--without-heartbeat", "--without-gossip", "--without-mingle", "--concurrency", "3" ]
