@@ -12,7 +12,9 @@ services:
   redis:
     image: redis:alpine
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.render
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/usr/src/cardboard/:Z
@@ -31,7 +33,9 @@ services:
       - db
       - redis
   celery:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.celery
     command: celery -A cardboard worker -l info --beat
     volumes:
       - .:/usr/src/cardboard/:Z
