@@ -53,7 +53,7 @@ export const HuntViewMain = (props) => {
     dispatch(fetchPuzzles(props.huntId));
   };
 
-  useInterval(updatePuzzleData, 10 * 1000);
+  useInterval(updatePuzzleData, 120 * 1000);
 
   const ModalComponent = MODAL_COMPONENTS[modal.type];
   React.useEffect(() => {
