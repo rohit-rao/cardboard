@@ -4,20 +4,19 @@ WORKDIR /usr/src/cardboard
 
 RUN set -xe;
 
-RUN apk update && apk add --no-cache build-base gcc libffi-dev postgresql-dev python3-dev libc-dev openssl-dev
-RUN apk add --no-cache tini nodejs yarn
-RUN pip install --upgrade pip
-RUN pip install poetry==1.6.1 dj-database-url whitenoise==6.3.0
+RUN apk update && apk add --no-cache tini nodejs yarn
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir poetry==1.6.1
 
 COPY ./pyproject.toml ./poetry.lock .
 RUN poetry config virtualenvs.create false
-RUN poetry install
+RUN poetry install --no-cache
 
 COPY ./package.json ./yarn.lock ./
-RUN yarn install
+RUN yarn install && yarn cache clean
 # Install patches
 COPY ./patches ./patches
-RUN yarn install
+RUN yarn install && yarn cache clean
 
 COPY . .
 RUN yarn run build
