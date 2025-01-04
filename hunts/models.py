@@ -26,12 +26,6 @@ class Hunt(models.Model):
     active = models.BooleanField(default=True)
     slug = models.SlugField(blank=True, unique=True)
 
-    class Meta:
-        permissions = (
-            ("hunt_admin", "Hunt admin"),
-            ("hunt_access", "Hunt access"),
-        )
-
     def __str__(self):
         return self.name
 
