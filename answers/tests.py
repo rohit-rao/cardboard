@@ -1,5 +1,4 @@
 from django.test import TestCase
-from guardian.shortcuts import assign_perm
 
 from accounts.models import Puzzler
 from hunts.models import Hunt
@@ -16,8 +15,6 @@ class TestAnswers(TestCase):
         self.client.login(username="test", password="testingpwd")
 
         self._test_hunt = Hunt.objects.create(name="fake hunt", url="google.com")
-        assign_perm("hunt_admin", self._user, self._test_hunt)
-        assign_perm("hunt_access", self._user, self._test_hunt)
 
         self._puzzle = Puzzle.objects.create(
             name="test",

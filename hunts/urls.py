@@ -14,9 +14,4 @@ urlpatterns = [
         name="sync_discord_roles",
     ),
     path("<slug:hunt_slug>/drive", views.redirect_to_drive, name="drive"),
-    path(
-        "<slug:hunt_slug>/sync_drive_permissions",
-        views.sync_drive_permissions,
-        name="sync_drive_permissions",
-    ),
 ]
